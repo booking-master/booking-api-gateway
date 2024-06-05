@@ -4,6 +4,3 @@
 [submodule "Booking.Microservices/Booking.Modular"]
 	path = Booking.Microservices/Booking.Modular
 	url = https://github.com/booking-master/booking-modular.git
-[submodule "Booking.Microservices/Booking.Microservices/Booking.Modular"]
-	path = Booking.Microservices/Booking.Microservices/Booking.Modular
-	url = https://github.com/booking-master/booking-modular.git
