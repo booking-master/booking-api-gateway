@@ -38,18 +38,18 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization(options =>
 {
-    AddPolicy(options, "ChangeUserInfo", "Host", Permission.ChangeUserInfo.ToString());
-    AddPolicy(options, "HostAccommodationOperations", "Host", Permission.HostAccommodationOperations.ToString());
-    AddPolicy(options, "HostReservationOperations", "Host", Permission.HostReservationOperations.ToString());
-    AddPolicy(options, "GuestReservationOperations", "Guest", Permission.GuestReservationOperations.ToString());
-    AddPolicy(options, "GetGuestReservations", "Guest", Permission.GetGuestReservations.ToString());
-    AddPolicy(options, "GetHostReservations", "Host", Permission.GetHostReservations.ToString());
-    AddPolicy(options, "SubscriptionOperations", "Host", Permission.SubscriptionOperations.ToString());
-    AddPolicy(options, "GuestReservationPayment", "Guest", Permission.GuestReservationPayment.ToString());
-    AddPolicy(options, "HostReservationPayment", "Host", Permission.HostReservationPayment.ToString());
-    AddPolicy(options, "ReservationOperations", "Host", Permission.ReservationOperations.ToString());
-    AddPolicy(options, "InvoicesOperations", "Host", Permission.InvoicesOperations.ToString());
-    AddPolicy(options, "CreateReview", "Guest", Permission.CreateReview.ToString());
+    AddPolicy(options, "ChangeUserInfo", ["Host"], Permission.ChangeUserInfo.ToString());
+    AddPolicy(options, "HostAccommodationOperations", ["Host"], Permission.HostAccommodationOperations.ToString());
+    AddPolicy(options, "HostReservationOperations", ["Host"], Permission.HostReservationOperations.ToString());
+    AddPolicy(options, "GuestReservationOperations", ["Guest"], Permission.GuestReservationOperations.ToString());
+    AddPolicy(options, "GetGuestReservations", ["Guest"], Permission.GetGuestReservations.ToString());
+    AddPolicy(options, "GetHostReservations", ["Host"], Permission.GetHostReservations.ToString());
+    AddPolicy(options, "SubscriptionOperations", ["Host"], Permission.SubscriptionOperations.ToString());
+    AddPolicy(options, "GuestReservationPayment", ["Guest"], Permission.GuestReservationPayment.ToString());
+    AddPolicy(options, "HostReservationPayment", ["Host"], Permission.HostReservationPayment.ToString());
+    AddPolicy(options, "ReservationOperations", ["Host"], Permission.ReservationOperations.ToString());
+    AddPolicy(options, "InvoicesOperations", ["Host", "Guest"], Permission.InvoicesOperations.ToString());
+    AddPolicy(options, "CreateReview", ["Guest"], Permission.CreateReview.ToString());
 });
 
 builder.Services.AddControllers();
@@ -69,6 +69,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(policy =>
+     policy.AllowAnyOrigin()
+         .AllowAnyMethod()
+         .AllowAnyHeader());
+
 app.UseHttpsRedirection();
 
 
@@ -80,7 +85,7 @@ app.MapReverseProxy();
 
 app.Run();
 
-void AddPolicy(AuthorizationOptions options, string policyName, string role, string permission)
+void AddPolicy(AuthorizationOptions options, string policyName, string[] role, string permission)
 {
     options.AddPolicy(
         policyName,
