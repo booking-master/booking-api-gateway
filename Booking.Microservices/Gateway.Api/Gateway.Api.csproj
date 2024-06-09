@@ -13,7 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\booking-modular\src\Booking\Modules\UserAccess\Booking.UserAccess.Infrastructure\Booking.UserAccess.Infrastructure.csproj" />
+    <ProjectReference Include="..\Accommodation.Service\Booking.Accommodation.Service\src\Shared\BuildingBlocks\Booking.BuildingBlocks.Domain\Booking.BuildingBlocks.Domain.csproj" />
   </ItemGroup>
+
 
 </Project>
